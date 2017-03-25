@@ -32,16 +32,14 @@ def finder_sharer_as_post(request, mode):
         # generate time for hour, minute and meridian (AM or PM)
         if meridian == 'PM':
             hour += 12
-        time = datetime.time(hour, minute)
+        date = datetime.datetime(day.year, day.month, day.day, hour, minute)
         if mode == 'sharer':
-            obj = DriverEvent(name=name, destination=dest, time=time, day=day, email=email,
-                              phone=phone)
-            for passenger in PassengerEvent.objects.all():
+            obj = DriverEvent(name=name, destination=dest, date=date, email=email, phone=phone)
+            for passenger in active_passengers():
                 check_for_match(passenger, obj)
         else:
-            obj = PassengerEvent(name=name, destination=dest, time=time, day=day, email=email,
-                                 phone=phone)
-            for driver in DriverEvent.objects.all():
+            obj = PassengerEvent(name=name, destination=dest, date=date, email=email, phone=phone)
+            for driver in active_drivers():
                 check_for_match(obj, driver)
         obj.save()
         return HttpResponseRedirect('/thanks')
@@ -51,9 +49,7 @@ def finder_sharer_as_post(request, mode):
 
 def finder_sharer_as_get(request, mode):
     form = RideshareForm()
-    driver_list = DriverEvent.objects.all()
-    passenger_list = PassengerEvent.objects.all()
-    context = {'form':form, 'driver_list':driver_list, 'passenger_list':passenger_list}
+    context = {'form':form}
     update_context(context, mode)
     return render(request, 'ridematch/tab_form.html', context)
 
@@ -61,15 +57,22 @@ def update_context(context, mode):
     if mode == 'finder':
         context['table_title'] = 'Drivers available'
         context['form_title'] = 'Make a post for a ride'
-        context['obj_list'] = DriverEvent.objects.all()
+        context['obj_list'] = active_drivers()
     else:
         context['table_title'] = 'Passengers looking for rides'
         context['form_title'] = 'Offer your availability'
-        context['obj_list'] = PassengerEvent.objects.all()
+        context['obj_list'] = active_passengers()
+
+def active_passengers():
+    return PassengerEvent.objects.exclude(date__lt=datetime.datetime.today())
+
+def active_drivers():
+    return DriverEvent.objects.exclude(date__lt=datetime.datetime.today())
 
 def check_for_match(passenger, driver):
     if passenger.destination == driver.destination:
-        send_mail(email_subject, email_body.format(driver), 'ianfisher45@gmail.com', 
+        date_str = driver.date.strftime('%A %m/%d/%y at %I:%M %p')
+        send_mail(email_subject, email_body.format(driver, date_str), 'ianfisher45@gmail.com', 
                   [passenger.email])
 
 # details for auto-generated email
@@ -77,5 +80,5 @@ email_subject = '[Have A Ride] You have a matching ride'
 email_body = """\
 {0.name} is also driving to {0.destination}.
 
-They are leaving at {0.time} on {0.day}.
+They are leaving at {1}.
 """
