@@ -1,4 +1,4 @@
 env/
 db.sqlite3
 *.pyc
-ridematch/settings.py
+rideshare/settings.py
