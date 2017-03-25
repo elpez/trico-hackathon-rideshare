@@ -31,7 +31,10 @@ def finder_sharer_as_post(request, mode):
         phone = form.cleaned_data['phone']
         # generate time for hour, minute and meridian (AM or PM)
         if meridian == 'PM':
-            hour += 12
+            if hour == 12:
+                hour = 23
+            else:
+                hour += 12
         date = datetime.datetime(day.year, day.month, day.day, hour, minute)
         if mode == 'sharer':
             obj = DriverEvent(name=name, destination=dest, date=date, email=email, phone=phone)
