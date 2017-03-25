@@ -4,11 +4,74 @@
 <link rel="stylesheet" href="{% static 'ridematch/css/site_style.css' %}" />
 {% endblock %}
 {% block content %}
-<div class="container">
-	<form action="" method="post">
-		{% csrf_token %}
-		{{ form }}
-		<input type="submit" value="Submit" />
-	</form>
-</div>
+
+<h1> Have-A-Ride </h2>
+            <p> A ride sharing service for tri-co students </p>
+        <h2> Fill out the form to find or share a ride! </h2>
+
+<div class="row">
+        <div class = "col-md-4">
+            <h3>Drivers</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Destination</th>
+                            <th>Pick Up Time</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ian Fisher</td>
+                            <td> Hackathon </td>
+                            <td>14:00</td>
+                            <td>ifisher@haverford.edu</td>
+                        </tr>
+	                </tbody>
+	            </table>
+            </div>
+
+    <div class = "col-md-4">
+        
+
+	    <form action="" method="post">
+		    {% csrf_token %}
+		    {{ form }}
+		    <input type="submit" value="Submit" />
+	        </form>
+
+        <h3> Or, search from current drivers and riders </h3>
+
+    </div>
+        <div class ="col-md-4">
+            <h3>Riders</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Destination</th>
+                        <th>Pick Up Time</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                   </tr>
+                </thead>
+                <tbody>
+                    <tr>
+               
+                        <td>John Carter</td>
+                        <td> PMA </td>
+                        <td>11:00</td>
+                        <td>johncarter@mail.com</td>
+                    </tr>
+	            </tbody>
+	        </table>
+        </div>
+    </div>
+
+
+    
+
+
 {% endblock %}
