@@ -8,3 +8,12 @@ form input {
 .row {
 	padding: 20px;
 }
+
+h3{
+font-family: "Palantino", serif;
+text-align: center;
+}
+
+.row{
+    font-family: "Palantino", serif;
+}
