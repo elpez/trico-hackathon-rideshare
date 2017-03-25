@@ -11,7 +11,7 @@ class DriverEvent(models.Model):
     phone = models.CharField(max_length=20, blank=True)
 
     def __unicode__(self):
-        return '%s driving to %s at %s %s'.format(self.name, self.destination, self.day, self.time)
+        return '%s driving to %s at %s %s' % (self.name, self.destination, self.day, self.time)
 
 class PassengerEvent(models.Model):
     name = models.CharField(max_length=20)
@@ -22,4 +22,4 @@ class PassengerEvent(models.Model):
     phone = models.CharField(max_length=20, blank=True)
 
     def __unicode__(self):
-        return '%s driving to %s at %s %s'.format(self.name, self.destination, self.day, self.time)
+        return '%s needs a ride to %s at %s %s' % (self.name, self.destination, self.day, self.time)
