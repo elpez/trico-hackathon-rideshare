@@ -30,7 +30,6 @@ def next_day():
     return day
 
 class RideshareForm(forms.Form):
-    d_or_p = forms.ChoiceField(label='', choices=[('D', 'Driver'), ('P', 'Passenger')])
     name = forms.CharField(label='', initial='Name', max_length=20)
     destination = forms.CharField(label='', initial='Where to?', max_length=50)
     hour = forms.ChoiceField(label='', initial=next_hour, choices=hour_choices)

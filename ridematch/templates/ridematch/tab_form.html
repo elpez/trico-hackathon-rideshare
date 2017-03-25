@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'ridematch/css/tab_form_style.css' %}" />
+<script>
+$(document).ready(function(){
+    $('#myTable').DataTable();
+});
+</script>
+{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-md-8">
+		<h3>{{ table_title }}</h3>
+		<table id="myTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Destination</th>
+					<th>Pick Up Time</th>
+					<th>Pick Up Day</th>
+					<th>Email</th>
+					<th>Phone Number</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for obj in obj_list %}
+				<tr>
+					<td>{{ obj.name }}</td>
+					<td>{{ obj.destination }}</td>
+					<td>{{ obj.time }}</td>
+					<td>{{ obj.day }}</td>
+					<td>{{ obj.email }}</td>
+					<td>{{ obj.phone }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-4">
+		<h3>{{ form_title }}</h3>
+		<form action="" method="post">
+			{% csrf_token %}
+			{{ form }}
+			<input type="submit" value="Submit" />
+		</form>
+	</div>
+</div>
+{% endblock %}
