@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
@@ -17,10 +18,16 @@ def index_as_post(request):
         typ = form.cleaned_data['d_or_p']
         name = form.cleaned_data['name']
         dest = form.cleaned_data['destination']
-        time = form.cleaned_data['time']
+        hour = form.cleaned_data['hour']
+        minute = form.cleaned_data['minute']
+        meridian = form.cleaned_data['meridian']
         day = form.cleaned_data['day']
         email = form.cleaned_data['email']
         phone = form.cleaned_data['phone']
+        # generate time for hour, minute and meridian (AM or PM)
+        if meridian == 'PM':
+            hour += 12
+        time = datetime.time(hour, minute)
         if typ == 'D':
             obj = DriverEvent(name=name, destination=dest, time=time, day=day, email=email,
                               phone=phone)
