@@ -27,7 +27,7 @@ h2{
     text-align: center;
     vertical-align: middle;
     font-family: "Palantino", serif;
-    margin: 100px;
+    margin: 50px;
 
 }   
 
@@ -51,8 +51,8 @@ font-size: 16px;
 
 .btn {
   display:block;
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
   border-radius: 50%;
   border: 5px;
   border-style: solid;
@@ -62,12 +62,4 @@ font-size: 16px;
   vertical-align:middle;
   font-size: 30px;
   font-family: "Palantino", serif;
-  
-  
 }
-
-.btn a {
-    font-size: 30px ;
-}
-
-

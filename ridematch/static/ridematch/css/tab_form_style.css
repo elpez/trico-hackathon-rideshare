@@ -5,6 +5,10 @@ form input {
 	padding-left: 5px;
 }
 
+form select {
+	margin-top: 10px;
+}
+
 .row {
 	padding: 20px;
 }
