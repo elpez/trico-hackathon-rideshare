@@ -26,7 +26,7 @@ def next_day():
     """
     day = datetime.date.today()
     if current_hour() == 23:
-        day.day += 1
+        day = datetime.date(day.year, day.month, day.day + 1)
     return day
 
 class RideshareForm(forms.Form):
