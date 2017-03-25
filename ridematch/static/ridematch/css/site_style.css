@@ -1,0 +1,15 @@
+.container {
+	width: 500px;
+	clear: both;
+}
+
+.container input {
+	width: 100%;
+	clear: both;
+	margin-top: 10px;
+	padding-left: 5px;
+}
+
+.container select {
+	margin-top: 10px;
+}

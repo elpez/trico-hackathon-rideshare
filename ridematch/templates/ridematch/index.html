@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'ridematch/css/site_style.css' %}" />
+{% endblock %}
 {% block content %}
-<form action="" method="post">
-	{% csrf_token %}
-	{{ form }}
-	<input type="submit" value="Submit" />
-</form>
+<div class="container">
+	<form action="" method="post">
+		{% csrf_token %}
+		{{ form }}
+		<input type="submit" value="Submit" />
+	</form>
+</div>
 {% endblock %}

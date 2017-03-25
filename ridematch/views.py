@@ -37,7 +37,10 @@ def index_as_post(request):
 
 def index_as_get(request):
     form = RideshareForm()
-    return render(request, 'ridematch/index.html', {'form':form})
+    driver_list = DriverEvent.objects.all()
+    passenger_list = PassengerEvent.objects.all()
+    context = {'form':form, 'driver_list':driver_list, 'passenger_list':passenger_list}
+    return render(request, 'ridematch/index.html', context)
 
 def check_for_match(passenger, driver):
     if passenger.destination == driver.destination:
