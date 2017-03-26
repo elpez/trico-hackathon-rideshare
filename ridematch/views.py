@@ -39,11 +39,13 @@ def finder_sharer_as_post(request, mode):
         if mode == 'sharer':
             obj = DriverEvent(name=name, destination=dest, date=date, email=email, phone=phone)
             for passenger in active_passengers():
-                check_for_match(passenger, obj)
+                if check_for_match(passenger, obj):
+                    break
         else:
             obj = PassengerEvent(name=name, destination=dest, date=date, email=email, phone=phone)
             for driver in active_drivers():
-                check_for_match(obj, driver)
+                if check_for_match(obj, driver):
+                    break
         obj.save()
         return HttpResponseRedirect('/thanks')
     context = {'form':form}
@@ -81,6 +83,8 @@ def check_for_match(passenger, driver):
         date_str = driver.date.strftime('%A %m/%d/%y at %I:%M %p')
         send_mail(email_subject, email_body.format(driver, date_str), 'ianfisher45@gmail.com', 
                   [passenger.email])
+        return True
+    return False
 
 # details for auto-generated email
 email_subject = '[Have A Ride] You have a matching ride'
